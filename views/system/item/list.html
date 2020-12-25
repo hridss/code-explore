@@ -1,0 +1,56 @@
+<div class="container-fluid">
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="row">
+            <form action="" method="get">
+                <div class="col-md-9">
+                    <div class="input-group">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="input-group">
+                        <input class="form-control" name="keyword" type="text" value="{{.keyword}}" placeholder="分类名称">
+				            <span class="input-group-btn">
+				              <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
+				            </span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th class="w8p">ID</th>
+                <th>名称</th>
+                <th class="w8p">描述</th>
+                <th class="w15p">修改时间</th>
+                <th class="w20p">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{range $item := .items}}
+            <tr>
+                <td class="center">{{$item.item_id}}</td>
+                <td>{{$item.name}}</td>
+                <td>{{$item.description}}</td>
+                <td class="center">
+                {{dateFormat $item.update_time "Y-m-d H:i:s"}}
+                </td>
+                <td class="center">
+                    <a name="edit" data-link="/system/item/edit?item_id={{$item.item_id}}"><i class="glyphicon glyphicon-edit" ></i>修改</a>
+                </td>
+            </tr>
+            {{end}}
+            </tbody>
+        </table>
+    </div>
+    <div class="panel-footer">
+        {{template "paginator/default.html" .}}
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+    Layers.bindIframe("[name='edit']", "修改分类信息", "300px", "800px");
+</script>

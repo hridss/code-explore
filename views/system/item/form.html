@@ -1,0 +1,57 @@
+<div class="container-fluid">
+    <div id="failedBox" class="hide"></div>
+    <div class="panel panel-default">
+        <br>{{$item := .item}}
+        <div class="panel-body">
+            <form class="form-horizontal" method="post" action="{{if $item}} /system/item/modify {{else}}/system/item/save {{end}}">
+                <input type="hidden" name="item_id" value="{{$item.item_id}}">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"><span class="text-danger"> * </span>分类名称</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="name" class="form-control" value="{{$item.name}}" placeholder="请输入分类名称">
+                    </div>
+                    <div class="col-sm-4 form-comment">
+                        <span class="text-danger"> * 不能包含 \ / : * ? " < > | 、非法字符</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"><span class="text-danger"></span>分类描述</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="description" class="form-control" value="{{$item.description}}" placeholder="请输入分类描述">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label"><span class="text-danger"> * </span>排序号</label>
+                    <div class="col-sm-5">
+                        <div class="input-group spinner">
+                            <input type="text" class="form-control" name="sequence" value="{{$item.sequence}}" placeholder="数字越小的显示越靠前">
+                            <div class="input-group-btn-vertical">
+                                <button class="btn btn-default" type="button"><i class="fa fa-caret-up"></i></button>
+                                <button class="btn btn-default" type="button"><i class="fa fa-caret-down"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="button" onclick="Form.ajaxSubmit(this.form, {{if $item}} true {{else}} false {{end}});" class="btn btn-primary">保存</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        // is_display
+        $("input[type='checkbox']").bootstrapSwitch({
+            size: 'small',
+            onText: '是',
+            offText: '否'
+        });
+        $("input[name='tags']").tagsinput({
+            tagClass: 'label label-default',
+            maxTags:3
+        });
+    });
+</script>
